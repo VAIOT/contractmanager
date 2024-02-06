@@ -72,6 +72,7 @@ describe("StakingRewards", function () {
         fixedAmount: contractDetails.agreementTerms.fixedAmount,
         includeTax: contractDetails.agreementTerms.includeTax,
         typeOfCompensation: contractDetails.agreementTerms.typeOfCompensation,
+        courtJurisdiction: contractDetails.agreementTerms.courtJurisdiction,
       };
 
       assert.deepEqual(contractAgreementTerms, agreementTerms);
