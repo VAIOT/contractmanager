@@ -1,41 +1,78 @@
-# VAIOT Single Asset Staking contract repo
+<div align="center">
+    <img src="assets/vaiotLogo.svg" alt="VAIOT Logo" width="400"/>
+</div>
 
-This repo is for VAIOT's official single asset staking smart contract.
+</br>
+</br>
 
-This is a hardhat repository. Before doing anything run
+# VAIOT Contract Manager
 
-```bash
-yarn install
-```
+Welcome to the official repository for VAIOT's Contract Manager. This repository is dedicated to the development and maintenance of the staking contract using the Hardhat development environment, tailored for the Ethereum ecosystem.
 
-to install all the dependencies.
+## Installation
 
-In order to properly run this project you must fill out .env file with the following variables:
-
-```bash
-MUMBAI_RPC_URL= // the rpc url for the mumbai testnet
-GOERLI_RPC_URL= // the rpc url for the goerli testnet
-PRIVATE_KEY= // private key of the account deploying the contracts
-COINMARKETCAP_API_KEY= // coinmarketcap api key
-POLYGONSCAN_API_KEY= // polygonscan api key
-REPORT_GAS= // true or false
-ETHERSCAN_API_KEY= // etherscan api key
-```
-
-To deploy the smart contract locally you need to write:
+Begin by cloning the repository and installing the necessary dependencies:
 
 ```bash
-yarn hardhat deploy
+git clone https://github.com/VAIOT/contractmanager.git
+cd contractmanager
+npm install
 ```
 
-Or if you wish to deploy to the mumbai testnet you must write:
+## Configuration
+
+To properly configure the project, create a .env file in the root directory and include the following required variables:
 
 ```bash
-yarn hardhat deploy --network mumbai
+MUMBAI_RPC_URL= # RPC URL for the Mumbai testnet
+GOERLI_RPC_URL= # RPC URL for the Goerli testnet
+PRIVATE_KEY= # Private key for contract deployment
+COINMARKETCAP_API_KEY= # CoinMarketCap API key
+POLYGONSCAN_API_KEY= # PolygonScan API key
+REPORT_GAS= # true or false
+ETHERSCAN_API_KEY= # Etherscan API key
+POLYGONEDGE_RPC_URL= # RPC URL for PolygonEdge
+KALEIDO_AUTHORIZATION= # Kaleido Authorization Key
+
 ```
 
-To run unit tests write:
+## Smart Contract Overview
+
+The ContractManager allows users to save, update and delete contracts following a specified format.
+
+<ul>
+    <li>Users can create their own contracts, that follow specific criteria.</li>
+    <li>Existing contracts can be later on updated, or deleted.</li>
+    <li>The ownership of the smart contract can be transferred to a third-party.</li>
+    <li>There are a number of getter functions in place for easy user experience.</li>
+</ul>
+
+Refer to the source code for detailed information on each function.
+
+## Deployment
+
+Deploy the smart contract either locally or on the Mumbai testnet using the Hardhat tool.
+
+### Local Deployment
 
 ```bash
-yarn hardhat test
+npx hardhat deploy
 ```
+
+### Mumbai Testnet Deployment
+
+```bash
+npx hardhat deploy --network mumbai
+```
+
+## Testing
+
+Run the unit tests to ensure code reliability:
+
+```bash
+npx hardhat test
+```
+
+## Contributing
+
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
