@@ -7,7 +7,7 @@
 
 # VAIOT Contract Manager
 
-Welcome to the official repository for VAIOT's Contract Manager. This repository is dedicated to the development and maintenance of the staking contract using the Hardhat development environment, tailored for the Ethereum ecosystem.
+Welcome to the official repository for VAIOT's Contract Manager. This repository is dedicated to the development and maintenance of the contract manager using the Hardhat development environment, tailored for the Ethereum ecosystem.
 
 ## Installation
 
