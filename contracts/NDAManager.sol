@@ -17,6 +17,8 @@ contract NDAManager {
   mapping(address => uint256[]) private userContractIds;
   mapping(address => mapping(uint256 => string[])) private ndaFieldNames;
   mapping(address => mapping(uint256 => uint256)) private ndaCreationDates;
+  mapping(address => mapping(uint256 => string)) private ndaPartyA;
+  mapping(address => mapping(uint256 => string)) private ndaPartyB;
 
   // ============= EVENTS ============
   event NDAAdded(uint256 contractId, address indexed owner);
@@ -45,12 +47,16 @@ contract NDAManager {
    * @param _owner Address of the NDA owner.
    * @param _fieldNames Names of the NDA fields.
    * @param _fieldValues Values for the NDA fields.
+   * @param _partyA Value for the party A of the NDA.
+   * @param _partyB Value for the party B of the NDA.
    * @return The new contract ID.
    */
   function addNDA(
     address _owner,
     string[] memory _fieldNames,
-    string[] memory _fieldValues
+    string[] memory _fieldValues,
+    string memory _partyA,
+    string memory _partyB
   ) public onlyDeployer returns (uint256) {
     require(_owner != address(0), "Invalid owner address");
     require(
@@ -64,8 +70,11 @@ contract NDAManager {
       ndaFieldNames[_owner][contractId].push(_fieldNames[i]);
     }
     userContractIds[_owner].push(contractId);
-    // Store the creation date of the NDA
     ndaCreationDates[_owner][contractId] = block.timestamp;
+
+    // Store partyA and partyB
+    ndaPartyA[_owner][contractId] = _partyA;
+    ndaPartyB[_owner][contractId] = _partyB;
 
     emit NDAAdded(contractId, _owner);
     return contractId;
@@ -153,6 +162,8 @@ contract NDAManager {
    * @return creationTimestamp The creation timestamp of the NDA.
    * @return fieldNames An array of field names in the specified NDA.
    * @return fieldValues An array of field values corresponding to the field names in the specified NDA.
+   * @return partyA Party A of the NDA contract.
+   * @return partyB Party B of the NDA contract.
    */
   function getNDAFieldsAndValues(
     address _owner,
@@ -163,7 +174,9 @@ contract NDAManager {
     returns (
       uint256 creationTimestamp,
       string[] memory fieldNames,
-      string[] memory fieldValues
+      string[] memory fieldValues,
+      string memory partyA,
+      string memory partyB
     )
   {
     require(userContractIds[_owner].length > 0, "No contracts found for owner");
@@ -183,7 +196,11 @@ contract NDAManager {
       fieldValues[i] = userNDAs[_owner][_contractId][fieldName];
     }
 
-    return (creationTimestamp, fieldNames, fieldValues);
+    // Return partyA and partyB along with other information
+    partyA = ndaPartyA[_owner][_contractId];
+    partyB = ndaPartyB[_owner][_contractId];
+
+    return (creationTimestamp, fieldNames, fieldValues, partyA, partyB);
   }
 
   /**
