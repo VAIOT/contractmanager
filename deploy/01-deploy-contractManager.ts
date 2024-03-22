@@ -1,6 +1,5 @@
 import { DeployFunction } from "hardhat-deploy/types";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
-import { networkConfig, developmentChains } from "../helper-hardhat-config";
 
 const deployContractManager: DeployFunction = async function (
   hre: HardhatRuntimeEnvironment
