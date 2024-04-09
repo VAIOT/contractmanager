@@ -1,7 +1,7 @@
 import { DeployFunction } from "hardhat-deploy/types";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 
-const deployNDAManager: DeployFunction = async function (
+const deployContractManager: DeployFunction = async function (
   hre: HardhatRuntimeEnvironment
 ) {
   const { deployments, getNamedAccounts } = hre;
@@ -9,16 +9,16 @@ const deployNDAManager: DeployFunction = async function (
   const { deployer } = await getNamedAccounts();
 
   log("----------------------------------------------------");
-  log("Deploying NDAManager and waiting for confirmations...");
+  log("Deploying Contract Manager and waiting for confirmations...");
 
-  const ndaManager = await deploy("NDAManager", {
+  const contractManager = await deploy("ContractManager", {
     from: deployer,
     args: [],
     log: true,
   });
 
-  log(`NDAManager deployed at ${ndaManager.address}`);
+  log(`Contract Manager deployed at ${contractManager.address}`);
 };
 
-export default deployNDAManager;
-deployNDAManager.tags = ["all", "nda_manager"];
+export default deployContractManager;
+deployContractManager.tags = ["all", "contract_manager"];

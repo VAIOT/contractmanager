@@ -2,11 +2,11 @@ import { assert, expect } from "chai";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { network, deployments, ethers } from "hardhat";
 import { developmentChains } from "../../helper-hardhat-config";
-import { ContractManager } from "../../typechain-types";
+import { ServiceAgreement } from "../../typechain-types";
 import { agreementTerms, services, parties } from "../../utils/exampleContract";
 
 describe("StakingRewards", function () {
-  let contractManager: ContractManager;
+  let contractManager: ServiceAgreement;
   let deployer: SignerWithAddress;
   let player: SignerWithAddress;
   let playerTwo: SignerWithAddress;
@@ -19,9 +19,9 @@ describe("StakingRewards", function () {
     player = accounts[1];
     playerTwo = accounts[2];
     await deployments.fixture(["contract_manager"]);
-    const contractManagerDeployment = await deployments.get("ContractManager");
+    const contractManagerDeployment = await deployments.get("ServiceAgreement");
     contractManager = await ethers.getContractAt(
-      "ContractManager",
+      "ServiceAgreement",
       contractManagerDeployment.address
     );
   });

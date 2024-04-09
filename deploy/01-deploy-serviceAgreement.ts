@@ -1,7 +1,7 @@
 import { DeployFunction } from "hardhat-deploy/types";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 
-const deployContractManager: DeployFunction = async function (
+const deployServiceAgreement: DeployFunction = async function (
   hre: HardhatRuntimeEnvironment
 ) {
   const { deployments, getNamedAccounts, network } = hre;
@@ -9,14 +9,14 @@ const deployContractManager: DeployFunction = async function (
   const { deployer } = await getNamedAccounts();
 
   log("----------------------------------------------------");
-  log("Deploying ContractManager...");
-  const contractManager = await deploy("ContractManager", {
+  log("Deploying ServiceAgreement...");
+  const serviceAgreement = await deploy("ServiceAgreement", {
     from: deployer,
     log: true,
   });
 
-  log(`ContractManager deployed at ${contractManager.address}`);
+  log(`ServiceAgreement deployed at ${serviceAgreement.address}`);
 };
 
-export default deployContractManager;
-deployContractManager.tags = ["all", "contract_manager"];
+export default deployServiceAgreement;
+deployServiceAgreement.tags = ["all", "service_agreement"];
