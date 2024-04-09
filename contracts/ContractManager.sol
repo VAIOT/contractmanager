@@ -19,6 +19,7 @@ contract ContractManager {
   mapping(address => mapping(uint256 => uint256)) private ndaCreationDates;
   mapping(address => mapping(uint256 => string)) private ndaPartyA;
   mapping(address => mapping(uint256 => string)) private ndaPartyB;
+  mapping(address => mapping(uint256 => string)) private contractTypes;
 
   // ============= EVENTS ============
   event NDAAdded(uint256 contractId, address indexed owner);
@@ -49,6 +50,7 @@ contract ContractManager {
    * @param _fieldValues Values for the NDA fields.
    * @param _partyA Value for the party A of the NDA.
    * @param _partyB Value for the party B of the NDA.
+   * @param _contractType Type of contract.
    * @return The new contract ID.
    */
   function addNDA(
@@ -56,7 +58,8 @@ contract ContractManager {
     string[] memory _fieldNames,
     string[] memory _fieldValues,
     string memory _partyA,
-    string memory _partyB
+    string memory _partyB,
+    string memory _contractType
   ) public onlyDeployer returns (uint256) {
     require(_owner != address(0), "Invalid owner address");
     require(
@@ -75,6 +78,9 @@ contract ContractManager {
     // Store partyA and partyB
     ndaPartyA[_owner][contractId] = _partyA;
     ndaPartyB[_owner][contractId] = _partyB;
+
+    // Store the contract type
+    contractTypes[_owner][contractId] = _contractType;
 
     emit NDAAdded(contractId, _owner);
     return contractId;
@@ -176,7 +182,8 @@ contract ContractManager {
       string[] memory fieldNames,
       string[] memory fieldValues,
       string memory partyA,
-      string memory partyB
+      string memory partyB,
+      string memory contractType
     )
   {
     require(userContractIds[_owner].length > 0, "No contracts found for owner");
@@ -199,8 +206,16 @@ contract ContractManager {
     // Return partyA and partyB along with other information
     partyA = ndaPartyA[_owner][_contractId];
     partyB = ndaPartyB[_owner][_contractId];
+    contractType = contractTypes[_owner][_contractId];
 
-    return (creationTimestamp, fieldNames, fieldValues, partyA, partyB);
+    return (
+      creationTimestamp,
+      fieldNames,
+      fieldValues,
+      partyA,
+      partyB,
+      contractType
+    );
   }
 
   /**
