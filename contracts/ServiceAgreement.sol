@@ -81,8 +81,8 @@ contract ServiceAgreement {
   /// @notice Function that allows you to create a new contract.
   /// @param _owner - address of the account that we are creating the contract for
   /// @param _agreementTerms - terms of the aggreement
-  /// @param _parties - parties of the aggreement
-  /// @param _services - services supplied in the aggreement
+  /// @param _parties - parties of the aggreement.
+  /// @param _services - services supplied in the aggreement.
 
   function createContract(
     address _owner,

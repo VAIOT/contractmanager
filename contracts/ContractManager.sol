@@ -22,13 +22,13 @@ contract ContractManager {
   mapping(address => mapping(uint256 => string)) private contractTypes;
 
   // ============= EVENTS ============
-  event NDAAdded(uint256 contractId, address indexed owner);
-  event NDAFieldUpdated(
+  event ContractAdded(uint256 contractId, address indexed owner);
+  event ContractFieldUpdated(
     uint256 contractId,
     string fieldName,
     string fieldValue
   );
-  event NDAFieldDeleted(uint256 contractId, string fieldName);
+  event ContractFieldDeleted(uint256 contractId, string fieldName);
 
   // ============= MODIFIERS ============
   modifier onlyDeployer() {
@@ -41,12 +41,12 @@ contract ContractManager {
     deployer = msg.sender;
   }
 
-  // ============= MAIN FUNCTIONS ============
+  // ============= MAIN FUNCTIONS =============
 
   /**
    * @dev Adds a new NDA with its fields for a user.
    * @param _owner Address of the NDA owner.
-   * @param _fieldNames Names of the NDA fields.
+   * @param _fieldNames Names of the NDA fields
    * @param _fieldValues Values for the NDA fields.
    * @param _partyA Value for the party A of the NDA.
    * @param _partyB Value for the party B of the NDA.
@@ -82,7 +82,7 @@ contract ContractManager {
     // Store the contract type
     contractTypes[_owner][contractId] = _contractType;
 
-    emit NDAAdded(contractId, _owner);
+    emit ContractAdded(contractId, _owner);
     return contractId;
   }
 
@@ -112,7 +112,7 @@ contract ContractManager {
     }
     // Update or set the field value.
     userNDAs[_owner][_contractId][_fieldName] = _fieldValue;
-    emit NDAFieldUpdated(_contractId, _fieldName, _fieldValue);
+    emit ContractFieldUpdated(_contractId, _fieldName, _fieldValue);
   }
 
   /**
@@ -132,7 +132,7 @@ contract ContractManager {
     );
     delete userNDAs[_owner][_contractId][_fieldName];
     removeFieldName(_owner, _contractId, _fieldName); // Use helper function to remove the field name
-    emit NDAFieldDeleted(_contractId, _fieldName);
+    emit ContractFieldDeleted(_contractId, _fieldName);
   }
 
   /**
