@@ -59,10 +59,10 @@ Deploy the smart contract either locally or on the Mumbai testnet using the Hard
 npx hardhat deploy
 ```
 
-### Mumbai Testnet Deployment
+### Sepolia Testnet Deployment
 
 ```bash
-npx hardhat deploy --network mumbai
+npx hardhat deploy --network sepolia
 ```
 
 ## Testing
