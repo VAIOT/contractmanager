@@ -44,12 +44,12 @@ contract ContractManager {
   // ============= MAIN FUNCTIONS =============
 
   /**
-   * @dev Adds a new NDA with its fields for a user.
-   * @param _owner Address of the NDA owner.
-   * @param _fieldNames Names of the NDA fields
-   * @param _fieldValues Values for the NDA fields.
-   * @param _partyA Value for the party A of the NDA.
-   * @param _partyB Value for the party B of the NDA.
+   * @dev Adds a new Contract with its fields for a user.
+   * @param _owner Address of the contract owner.
+   * @param _fieldNames Names of the contract fields
+   * @param _fieldValues Values for the contract fields.
+   * @param _partyA Value for the party A of the contract.
+   * @param _partyB Value for the party B of the contract.
    * @param _contractType Type of contract.
    * @return The new contract ID.
    */
