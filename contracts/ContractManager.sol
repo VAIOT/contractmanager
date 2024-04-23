@@ -116,8 +116,8 @@ contract ContractManager {
   }
 
   /**
-   * @dev Deletes a field from a specific NDA.
-   * @param _owner Address of the NDA owner.
+   * @dev Deletes a field from a specific contract.
+   * @param _owner Address of the contract owner.
    * @param _contractId ID of the contract from which the field will be deleted.
    * @param _fieldName Name of the field to be deleted.
    */
