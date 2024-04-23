@@ -13,12 +13,12 @@ contract ContractManager {
 
   // ============= MAPPINGS ============
   mapping(address => mapping(uint256 => mapping(string => string)))
-    private userNDAs;
+    private userContracts;
   mapping(address => uint256[]) private userContractIds;
-  mapping(address => mapping(uint256 => string[])) private ndaFieldNames;
-  mapping(address => mapping(uint256 => uint256)) private ndaCreationDates;
-  mapping(address => mapping(uint256 => string)) private ndaPartyA;
-  mapping(address => mapping(uint256 => string)) private ndaPartyB;
+  mapping(address => mapping(uint256 => string[])) private contractFieldNames;
+  mapping(address => mapping(uint256 => uint256)) private contractCreationDates;
+  mapping(address => mapping(uint256 => string)) private contractPartyA;
+  mapping(address => mapping(uint256 => string)) private contractPartyB;
   mapping(address => mapping(uint256 => string)) private contractTypes;
 
   // ============= EVENTS ============
@@ -69,15 +69,15 @@ contract ContractManager {
 
     uint256 contractId = nextContractId++;
     for (uint256 i = 0; i < _fieldNames.length; i++) {
-      userNDAs[_owner][contractId][_fieldNames[i]] = _fieldValues[i];
-      ndaFieldNames[_owner][contractId].push(_fieldNames[i]);
+      userContracts[_owner][contractId][_fieldNames[i]] = _fieldValues[i];
+      contractFieldNames[_owner][contractId].push(_fieldNames[i]);
     }
     userContractIds[_owner].push(contractId);
-    ndaCreationDates[_owner][contractId] = block.timestamp;
+    contractCreationDates[_owner][contractId] = block.timestamp;
 
     // Store partyA and partyB
-    ndaPartyA[_owner][contractId] = _partyA;
-    ndaPartyB[_owner][contractId] = _partyB;
+    contractPartyA[_owner][contractId] = _partyA;
+    contractPartyB[_owner][contractId] = _partyB;
 
     // Store the contract type
     contractTypes[_owner][contractId] = _contractType;
@@ -108,10 +108,10 @@ contract ContractManager {
     require(bytes(_fieldName).length > 0, "Field name cannot be empty");
     // Check if the field already exists. If not, add it to the field names list.
     if (!fieldExists(_owner, _contractId, _fieldName)) {
-      ndaFieldNames[_owner][_contractId].push(_fieldName);
+      contractFieldNames[_owner][_contractId].push(_fieldName);
     }
     // Update or set the field value.
-    userNDAs[_owner][_contractId][_fieldName] = _fieldValue;
+    userContracts[_owner][_contractId][_fieldName] = _fieldValue;
     emit ContractFieldUpdated(_contractId, _fieldName, _fieldValue);
   }
 
@@ -127,10 +127,10 @@ contract ContractManager {
     string memory _fieldName
   ) public onlyDeployer {
     require(
-      bytes(userNDAs[_owner][_contractId][_fieldName]).length != 0,
+      bytes(userContracts[_owner][_contractId][_fieldName]).length != 0,
       "Field does not exist"
     );
-    delete userNDAs[_owner][_contractId][_fieldName];
+    delete userContracts[_owner][_contractId][_fieldName];
     removeFieldName(_owner, _contractId, _fieldName); // Use helper function to remove the field name
     emit ContractFieldDeleted(_contractId, _fieldName);
   }
@@ -147,7 +147,7 @@ contract ContractManager {
     uint256 _contractId,
     string memory _fieldName
   ) public view returns (string memory) {
-    return userNDAs[_owner][_contractId][_fieldName];
+    return userContracts[_owner][_contractId][_fieldName];
   }
 
   /**
@@ -188,24 +188,24 @@ contract ContractManager {
   {
     require(userContractIds[_owner].length > 0, "No contracts found for owner");
     require(
-      ndaCreationDates[_owner][_contractId] != 0,
+      contractCreationDates[_owner][_contractId] != 0,
       "Contract does not exist"
     );
 
-    uint256 fieldCount = ndaFieldNames[_owner][_contractId].length;
-    creationTimestamp = ndaCreationDates[_owner][_contractId];
+    uint256 fieldCount = contractFieldNames[_owner][_contractId].length;
+    creationTimestamp = contractCreationDates[_owner][_contractId];
     fieldNames = new string[](fieldCount);
     fieldValues = new string[](fieldCount);
 
     for (uint256 i = 0; i < fieldCount; i++) {
-      string memory fieldName = ndaFieldNames[_owner][_contractId][i];
+      string memory fieldName = contractFieldNames[_owner][_contractId][i];
       fieldNames[i] = fieldName;
-      fieldValues[i] = userNDAs[_owner][_contractId][fieldName];
+      fieldValues[i] = userContracts[_owner][_contractId][fieldName];
     }
 
     // Return partyA and partyB along with other information
-    partyA = ndaPartyA[_owner][_contractId];
-    partyB = ndaPartyB[_owner][_contractId];
+    partyA = contractPartyA[_owner][_contractId];
+    partyB = contractPartyB[_owner][_contractId];
     contractType = contractTypes[_owner][_contractId];
 
     return (
@@ -230,7 +230,7 @@ contract ContractManager {
     uint256 _contractId,
     string memory _fieldName
   ) private view returns (bool) {
-    string[] memory fields = ndaFieldNames[_owner][_contractId];
+    string[] memory fields = contractFieldNames[_owner][_contractId];
     for (uint256 i = 0; i < fields.length; i++) {
       if (
         keccak256(abi.encodePacked(fields[i])) ==
@@ -257,10 +257,15 @@ contract ContractManager {
   ) private {
     uint256 fieldIndex = 0;
     bool found = false;
-    for (uint256 i = 0; i < ndaFieldNames[_owner][_contractId].length; i++) {
+    for (
+      uint256 i = 0;
+      i < contractFieldNames[_owner][_contractId].length;
+      i++
+    ) {
       if (
-        keccak256(abi.encodePacked(ndaFieldNames[_owner][_contractId][i])) ==
-        keccak256(abi.encodePacked(_fieldName))
+        keccak256(
+          abi.encodePacked(contractFieldNames[_owner][_contractId][i])
+        ) == keccak256(abi.encodePacked(_fieldName))
       ) {
         fieldIndex = i;
         found = true;
@@ -271,14 +276,14 @@ contract ContractManager {
     if (found) {
       for (
         uint256 i = fieldIndex;
-        i < ndaFieldNames[_owner][_contractId].length - 1;
+        i < contractFieldNames[_owner][_contractId].length - 1;
         i++
       ) {
-        ndaFieldNames[_owner][_contractId][i] = ndaFieldNames[_owner][
+        contractFieldNames[_owner][_contractId][i] = contractFieldNames[_owner][
           _contractId
         ][i + 1];
       }
-      ndaFieldNames[_owner][_contractId].pop();
+      contractFieldNames[_owner][_contractId].pop();
     }
   }
 }
