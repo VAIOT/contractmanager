@@ -162,14 +162,14 @@ contract ContractManager {
   }
 
   /**
-   * @notice Fetches all field names, their corresponding values, and creation timestamp for a given NDA
-   * @param _owner Address of the NDA owner
-   * @param _contractId ID of the NDA contract whose fields are being queried.
-   * @return creationTimestamp The creation timestamp of the NDA.
-   * @return fieldNames An array of field names in the specified NDA.
-   * @return fieldValues An array of field values corresponding to the field names in the specified NDA.
-   * @return partyA Party A of the NDA contract.
-   * @return partyB Party B of the NDA contract.
+   * @notice Fetches all field names, their corresponding values, and creation timestamp for a given contract
+   * @param _owner Address of the contract owner
+   * @param _contractId ID of the contract whose fields are being queried.
+   * @return creationTimestamp The creation timestamp of the contract.
+   * @return fieldNames An array of field names in the specified contract.
+   * @return fieldValues An array of field values corresponding to the field names in the specified contract.
+   * @return partyA Party A of the contract.
+   * @return partyB Party B of the contract.
    */
   function getNDAFieldsAndValues(
     address _owner,
