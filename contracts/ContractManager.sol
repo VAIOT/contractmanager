@@ -243,11 +243,11 @@ contract ContractManager {
   }
 
   /**
-   * @dev Removes a field name from the array of field names for a given NDA.
+   * @dev Removes a field name from the array of field names for a given contract.
    * This function should be called to maintain consistency between the stored field values
    * and their corresponding names when a field is deleted.
-   * @param _owner The address of the NDA's owner.
-   * @param _contractId The unique identifier of the NDA.
+   * @param _owner The address of the contract owner.
+   * @param _contractId The unique identifier of the contract.
    * @param _fieldName The name of the field to be removed.
    */
   function removeFieldName(
