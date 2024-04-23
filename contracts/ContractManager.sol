@@ -87,11 +87,11 @@ contract ContractManager {
   }
 
   /**
-   * @dev Updates an existing field or adds a new field to a specific NDA.
-   * If the field name does not exist, it is added to the NDA. If it does exist,
+   * @dev Updates an existing field or adds a new field to a specific contract.
+   * If the field name does not exist, it is added to the contract. If it does exist,
    * its value is updated with the new value provided.
-   * @param _owner Address of the NDA owner.
-   * @param _contractId ID of the NDA contract to be updated.
+   * @param _owner Address of the contract owner.
+   * @param _contractId ID of the contract to be updated.
    * @param _fieldName Name of the field to be updated or added.
    * @param _fieldValue Value of the field to be updated or added.
    */
