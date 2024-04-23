@@ -219,9 +219,9 @@ contract ContractManager {
   }
 
   /**
-   * @dev Checks if a field name exists for a given NDA.
-   * @param _owner The address of the NDA's owner.
-   * @param _contractId The unique identifier of the NDA.
+   * @dev Checks if a field name exists for a given contract.
+   * @param _owner The address of the contract owner.
+   * @param _contractId The unique identifier of the contract.
    * @param _fieldName The name of the field to check for existence.
    * @return bool True if the field exists, false otherwise.
    */
