@@ -131,13 +131,13 @@ contract ContractManager {
       "Field does not exist"
     );
     delete userContracts[_owner][_contractId][_fieldName];
-    removeFieldName(_owner, _contractId, _fieldName); // Use helper function to remove the field name
+    removeFieldName(_owner, _contractId, _fieldName);
     emit ContractFieldDeleted(_contractId, _fieldName);
   }
 
   /**
-   * @dev Retrieves a field value from a specific NDA.
-   * @param _owner Address of the NDA owner.
+   * @dev Retrieves a field value from a specific contract.
+   * @param _owner Address of the contract owner.
    * @param _contractId ID of the contract.
    * @param _fieldName Name of the field whose value is to be retrieved.
    * @return The value of the specified field.
