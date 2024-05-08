@@ -13,13 +13,13 @@ contract ContractManager {
 
   // ============= MAPPINGS ============
   mapping(address => mapping(uint256 => mapping(string => string)))
-    private userContracts;
-  mapping(address => uint256[]) private userContractIds;
-  mapping(address => mapping(uint256 => string[])) private contractFieldNames;
-  mapping(address => mapping(uint256 => uint256)) private contractCreationDates;
-  mapping(address => mapping(uint256 => string)) private contractPartyA;
-  mapping(address => mapping(uint256 => string)) private contractPartyB;
-  mapping(address => mapping(uint256 => string)) private contractTypes;
+    private userContracts; // Allows you to get all contracts for a certain wallet address
+  mapping(address => uint256[]) private userContractIds; // Allows you to get contract ids associated with a certain wallet address
+  mapping(address => mapping(uint256 => string[])) private contractFieldNames; // Allows you to get field names associated with a certain contract id
+  mapping(address => mapping(uint256 => uint256)) private contractCreationDates; // Allows you to get creation dates associated with a certain contract id
+  mapping(address => mapping(uint256 => string)) private contractPartyA; // Allows you to get party A associated with a certain contract id
+  mapping(address => mapping(uint256 => string)) private contractPartyB; // Allows you to get party B associated with a certain contract id
+  mapping(address => mapping(uint256 => string)) private contractTypes; // Allows you to get contract types associated with a certain contract id
 
   // ============= EVENTS ============
   event ContractAdded(uint256 contractId, address indexed owner);
