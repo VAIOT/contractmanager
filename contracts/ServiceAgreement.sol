@@ -54,9 +54,9 @@ contract ServiceAgreement {
 
   // ============= MAPPINGS ============
 
-  mapping(address => Contract[]) private contracts;
-  mapping(uint256 => Party[]) private contractParties;
-  mapping(uint256 => Service[]) private contractServices;
+  mapping(address => Contract[]) private contracts; // Allows you to get Contract saved for a specific wallet address
+  mapping(uint256 => Party[]) private contractParties; // Allows you to get parties associated with a certain contract Id
+  mapping(uint256 => Service[]) private contractServices; // Allows you to get services associated with a certain contract Id
 
   // ============= EVENTS ============
 
